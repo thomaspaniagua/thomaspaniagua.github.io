@@ -208,10 +208,11 @@ var FormComponent = (function () {
     FormComponent.prototype.generatePDF = function () {
         var doc = new __WEBPACK_IMPORTED_MODULE_1_jspdf__();
         var currentY = 20;
+        var currentX = 20;
         var addInfo = function (label, data) {
-            doc.text(label + ":", 20, currentY);
-            doc.text(data, 20 + doc.getTextWidth(label) * 1.3, currentY);
-            currentY += 20;
+            doc.text(label + ":", currentX, currentY);
+            doc.text(data, currentX + doc.getTextWidth(label) * 1.3, currentY);
+            currentY += 10;
         };
         addInfo("First Name", this.firstName);
         addInfo("Last Name", this.lastName);
@@ -220,13 +221,13 @@ var FormComponent = (function () {
         addInfo("Email", this.email);
         addInfo("Address", this.address);
         addInfo("Square Feet", this.squareFeet.toString());
-        currentY += 25;
-        addInfo("Cost", this.getPrice().toString());
+        currentY += 10;
+        addInfo("Cost", "$" + this.getPrice().toString());
         addInfo("1 Maid", this.getTime(1));
         addInfo("2 Maid", this.getTime(2));
         addInfo("3 Maid", this.getTime(3));
         addInfo("4 Maid", this.getTime(4));
-        doc.autoPrint(); // <<--------------------- !!
+        addInfo("Comments", this.comments);
         window.open(doc.output('bloburl'), '_blank');
     };
     return FormComponent;
